@@ -1,7 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../entities/User';
 import { Repository } from 'typeorm';
-console.log(process.env.DATABASE_NAME);
 
 export class UserRepository {
   constructor(
@@ -10,8 +9,6 @@ export class UserRepository {
   ) {}
 
   async findById(id: string) {
-    console.log(process.env.DATABASE_NAME);
-
     return await this.userRepo
       .createQueryBuilder()
       .where('id = :id', { id })

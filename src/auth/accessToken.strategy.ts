@@ -22,8 +22,9 @@ export class AccessTokenStrategy extends PassportStrategy(Strategy) {
       seq: number;
       iat: number;
       exp: number;
+      storeSeq: number;
     },
   ) {
-    return { id: payload.id, seq: payload.seq };
+    return { id: payload.id, seq: payload.seq, storeSeq: payload.storeSeq };
   }
 }

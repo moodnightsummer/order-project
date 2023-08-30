@@ -17,6 +17,9 @@ export class MenuCategory {
   })
   categoryName: string;
 
+  @Column("int", { name: "store_seq", comment: "매장 번호" })
+  storeSeq: number;
+
   @OneToMany(() => Menu, (menu) => menu.categorySeq2)
   menus: Menu[];
 }

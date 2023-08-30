@@ -1,16 +1,8 @@
 import { AuthService } from './auth.service';
-import {
-  Controller,
-  Get,
-  Post,
-  Request,
-  UseGuards,
-  Headers,
-} from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { PublicAuth, SkipAuth } from '../config/customMetadata';
+import { Controller, Post, Request } from '@nestjs/common';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { SkipAuth } from '../config/customMetadata';
 import { CustomResponseDto } from '../dto/customResponseDto';
-import { log } from 'console';
 
 @Controller('')
 export class AuthController {
@@ -49,7 +41,9 @@ export class AuthController {
       const accessToken = this.authService.createAccessToken(
         req.body.userId,
         user.seq,
+        user.storeSeq,
       );
+
       const refreshToken = this.authService.createRefreshToken(
         req.body.id,
         user.seq,
@@ -59,6 +53,7 @@ export class AuthController {
         accessToken,
         refreshToken,
         userSeq: user.seq,
+        storeSeq: user.storeSeq,
       });
     }
 

@@ -24,12 +24,12 @@ export class Menu {
   price: number | null;
 
   @Column("varchar", {
-    name: "commant",
+    name: "comment",
     nullable: true,
     comment: "메뉴 설명",
     length: 255,
   })
-  commant: string | null;
+  comment: string | null;
 
   @Column("char", {
     name: "soldout_status",

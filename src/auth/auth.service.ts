@@ -14,8 +14,8 @@ export class AuthService {
     return await this.userRepo.findById(id);
   }
 
-  createAccessToken(id: string, seq: number): string {
-    return this.jwtService.sign({ id, seq }, { expiresIn: '2h' });
+  createAccessToken(id: string, seq: number, storeSeq: number): string {
+    return this.jwtService.sign({ id, seq, storeSeq }, { expiresIn: '2h' });
   }
 
   createRefreshToken(id: string, seq: number): string {
