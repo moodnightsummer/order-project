@@ -24,7 +24,6 @@ export class MenuController {
   })
   @ApiResponse({ type: MenuDto })
   async getMenu(@Req() req): Promise<CustomResponseDto> {
-    const storeSeq = 1;
-    return await this.menuService.findMenuByStoreSeq(storeSeq);
+    return await this.menuService.findMenuByStoreSeq(req.user.storeSeq);
   }
 }
