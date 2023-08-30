@@ -25,7 +25,7 @@ export class AppDatabase {
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
-        name: process.env.FMSI,
+        name: process.env.DATABASE_NAME,
         ...defaultOptions(configService),
         database: configService.get('DATABASE_NAME'),
         entities: [`${__dirname}/../database/entities/*.{js,ts}`],
