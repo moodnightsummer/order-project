@@ -1,12 +1,21 @@
 CREATE DATABASE torder;
 
+CREATE TABLE `store` (
+  `seq` int NOT NULL AUTO_INCREMENT COMMENT '매장 번호',
+  `store_name` varchar(100) NOT NULL COMMENT '매장 이름',
+  PRIMARY KEY (`seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='매장';
+
 CREATE TABLE `user` (
   `seq` int NOT NULL AUTO_INCREMENT COMMENT '유저 번호',
+  `store_seq` int NOT NULL COMMENT '매장 번호',
   `id` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '아이디',
   `name` varchar(20) NOT NULL COMMENT '유저 이름',
   `password` varchar(255) NOT NULL COMMENT '비밀번호',
-  PRIMARY KEY (`seq`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='유저 정보';
+  PRIMARY KEY (`seq`),
+  KEY `user_FK` (`store_seq`),
+  CONSTRAINT `user_FK` FOREIGN KEY (`store_seq`) REFERENCES `store` (`seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='유저 정보';
 
 CREATE TABLE `menu` (
   `seq` int NOT NULL AUTO_INCREMENT COMMENT '메뉴 번호',
@@ -20,6 +29,13 @@ CREATE TABLE `menu` (
   CONSTRAINT `menu_FK` FOREIGN KEY (`category_seq`) REFERENCES `menu_category` (`seq`)
 ) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='메뉴';
 
+CREATE TABLE `menu_category` (
+  `seq` int NOT NULL AUTO_INCREMENT COMMENT '카테고리 번호',
+  `category_name` varchar(100) NOT NULL COMMENT '카테고리명',
+  `store_seq` int NOT NULL COMMENT '매장 번호',
+  PRIMARY KEY (`seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='메뉴 카테고리';
+
 CREATE TABLE `order` (
   `seq` int NOT NULL COMMENT '주문 번호',
   `userSeq` int NOT NULL COMMENT '유저 번호',
@@ -31,29 +47,27 @@ CREATE TABLE `order` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='주문';
 
 CREATE TABLE `order_detail` (
-  `seq` int NOT NULL COMMENT '주문 내역 번호',
+  `seq` int NOT NULL AUTO_INCREMENT COMMENT '주문 내역 번호',
   `order_seq` int NOT NULL COMMENT '주문 번호',
   `menu_seq` int NOT NULL COMMENT '메뉴 번호',
   `quantity` int NOT NULL DEFAULT '1' COMMENT '수량',
-  `create_date` date NOT NULL COMMENT '주문 날짜'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='주문 내역';
-
-CREATE TABLE `menu_category` (
-  `seq` int NOT NULL AUTO_INCREMENT COMMENT '카테고리 번호',
-  `category_name` varchar(100) NOT NULL COMMENT '카테고리명',
-  PRIMARY KEY (`seq`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='메뉴 카테고리';
-
+  `create_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '주문 날짜',
+  PRIMARY KEY (`seq`),
+  KEY `order_detail_FK` (`menu_seq`),
+  KEY `order_detail_FK_1` (`order_seq`),
+  CONSTRAINT `order_detail_FK` FOREIGN KEY (`menu_seq`) REFERENCES `menu` (`seq`),
+  CONSTRAINT `order_detail_FK_1` FOREIGN KEY (`order_seq`) REFERENCES `order` (`seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='주문 내역';
 
 CREATE TABLE `payment` (
-  `seq` int NOT NULL COMMENT '결제 번호',
+  `seq` int NOT NULL AUTO_INCREMENT COMMENT '결제 번호',
   `user_seq` int NOT NULL COMMENT '유저 번호',
   `order_seq` int NOT NULL COMMENT '주문 번호',
   `total_price` varchar(100) NOT NULL COMMENT '총 결제 금액',
-  `create_date` date NOT NULL COMMENT '결제 날짜',
+  `create_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '결제 날짜',
   PRIMARY KEY (`seq`),
   KEY `payment_FK` (`user_seq`),
   KEY `payment_FK_1` (`order_seq`),
   CONSTRAINT `payment_FK` FOREIGN KEY (`user_seq`) REFERENCES `user` (`seq`),
   CONSTRAINT `payment_FK_1` FOREIGN KEY (`order_seq`) REFERENCES `order` (`seq`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='결제 내역';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='결제 내역';
