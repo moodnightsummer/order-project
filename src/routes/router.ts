@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { RouterModule } from '@nestjs/core';
 import { AuthModule } from '../auth/auth.module';
 import { MenuModule } from 'src/menu/menu.module';
+import { PaymentModule } from 'src/payment/payment.module';
 
 @Module({
   imports: [
@@ -22,12 +23,17 @@ import { MenuModule } from 'src/menu/menu.module';
             path: 'order',
             module: OrderModule,
           },
+          {
+            path: 'payment',
+            module: PaymentModule,
+          },
         ],
       },
     ]),
     AuthModule,
     MenuModule,
     OrderModule,
+    PaymentModule,
   ],
 })
 export class Router {}

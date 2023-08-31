@@ -10,6 +10,8 @@ import { Order } from '../entities/Order';
 import { OrderDetail } from '../entities/OrderDetail';
 import { OrderRepository } from './order.repository';
 import { OrderDetailRepository } from './orderDetail.repository';
+import { Payment } from '../entities/Payment';
+import { PaymentRepository } from './payment.repository';
 
 const entityArrays: EntityClassOrSchema[] = [
   User,
@@ -17,6 +19,7 @@ const entityArrays: EntityClassOrSchema[] = [
   MenuCategory,
   Order,
   OrderDetail,
+  Payment,
 ];
 
 @Module({
@@ -28,12 +31,14 @@ const entityArrays: EntityClassOrSchema[] = [
     OrderRepository,
     MenuCategoryRepository,
     OrderDetailRepository,
+    PaymentRepository,
   ],
   exports: [
     UserRepository,
     OrderRepository,
     MenuCategoryRepository,
     OrderDetailRepository,
+    PaymentRepository,
   ],
 })
 export class RepositoryModule {}

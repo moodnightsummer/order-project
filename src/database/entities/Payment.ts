@@ -29,8 +29,12 @@ export class Payment {
   })
   totalPrice: string;
 
-  @Column("date", { name: "create_date", comment: "결제 날짜" })
-  createDate: string;
+  @Column("datetime", {
+    name: "create_date",
+    comment: "결제 날짜",
+    default: () => "CURRENT_TIMESTAMP",
+  })
+  createDate: Date;
 
   @ManyToOne(() => User, (user) => user.payments, {
     onDelete: "NO ACTION",

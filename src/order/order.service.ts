@@ -3,7 +3,12 @@ import { OrderRepository } from './../database/repository/order.repository';
 import { Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import { CustomResponseDto } from 'src/dto/customResponseDto';
-import { OrderDetailRowDto, OrderInputDto } from './dto/order.dto';
+import {
+  OrderDetailRowDto,
+  OrderInputDto,
+  OrderListDto,
+  OrderListRowsDto,
+} from './dto/order.dto';
 import { OrderDetailRepository } from 'src/database/repository/orderDetail.repository';
 import { Order } from 'src/database/entities/Order';
 import { OrderDetail } from 'src/database/entities/OrderDetail';
@@ -100,6 +105,38 @@ export class OrderService {
         // 트랜잭션 종료
         await queryRunner.release();
       }
+    }
+  }
+
+  async findOrderList(userSeq: number): Promise<CustomResponseDto> {
+    try {
+      const orderStatus = await this.checkExistOrder(userSeq);
+
+      if (!orderStatus) {
+        return new CustomResponseDto(200, []);
+      } else {
+        const result = new OrderListDto();
+
+        result.orderSeq = orderStatus;
+
+        const date: OrderListRowsDto[] =
+          await this.orderRepo.findOrderListByUserSeq(userSeq);
+
+        result.totalPrice = date.reduce(
+          (sum, row) => sum + Number(row.calcPrice),
+          0,
+        );
+
+        result.orderList = date;
+
+        return new CustomResponseDto(200, result);
+      }
+    } catch (error) {
+      console.log(error);
+
+      return new CustomResponseDto(403, {
+        message: '주문 내역 조회에 실패하였습니다.',
+      });
     }
   }
 }
