@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import RedisClient from '@redis/client/dist/lib/client';
 import * as bcrypt from 'bcrypt';
-import exp from 'constants';
 import { UserRepository } from 'src/database/repository/user.repository';
 import { CustomResponseDto } from 'src/dto/customResponseDto';
 import { RedisCommand } from 'utils/redisCommand';

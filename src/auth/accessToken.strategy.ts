@@ -3,7 +3,6 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Request } from 'express';
 import { AuthService } from './auth.service';
-import { CustomResponseDto } from 'src/dto/customResponseDto';
 import { RedisCommand } from 'utils/redisCommand';
 
 @Injectable()

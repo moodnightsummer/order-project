@@ -2,7 +2,6 @@ import { AuthService } from './auth.service';
 import {
   Body,
   Controller,
-  Get,
   Headers,
   Post,
   Request,
