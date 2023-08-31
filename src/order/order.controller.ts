@@ -8,7 +8,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { OrderDto, OrderListDto, OrderListRowsDto } from './dto/order.dto';
+import { OrderDto, OrderListDto } from './dto/order.dto';
 
 @Controller()
 @ApiTags('주문')

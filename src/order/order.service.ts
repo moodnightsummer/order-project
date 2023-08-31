@@ -105,6 +105,8 @@ export class OrderService {
         // 트랜잭션 종료
         await queryRunner.release();
       }
+
+      return new CustomResponseDto(200, { message: '주문을 성공하였습니다.' });
     }
   }
 
