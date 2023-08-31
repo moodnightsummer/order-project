@@ -1,4 +1,11 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { User } from "./User";
 import { Order } from "./Order";
 
@@ -6,7 +13,7 @@ import { Order } from "./Order";
 @Index("payment_FK_1", ["orderSeq"], {})
 @Entity("payment", { schema: "torder" })
 export class Payment {
-  @Column("int", { primary: true, name: "seq", comment: "결제 번호" })
+  @PrimaryGeneratedColumn({ type: "int", name: "seq", comment: "결제 번호" })
   seq: number;
 
   @Column("int", { name: "user_seq", comment: "유저 번호" })

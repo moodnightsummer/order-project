@@ -4,9 +4,11 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { MenuCategory } from "./MenuCategory";
+import { OrderDetail } from "./OrderDetail";
 
 @Index("menu_FK", ["categorySeq"], {})
 @Entity("menu", { schema: "torder" })
@@ -45,4 +47,7 @@ export class Menu {
   })
   @JoinColumn([{ name: "category_seq", referencedColumnName: "seq" }])
   categorySeq2: MenuCategory;
+
+  @OneToMany(() => OrderDetail, (orderDetail) => orderDetail.menuSeq2)
+  orderDetails: OrderDetail[];
 }

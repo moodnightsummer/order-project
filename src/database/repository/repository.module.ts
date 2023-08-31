@@ -6,14 +6,34 @@ import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-clas
 import { MenuCategory } from '../entities/MenuCategory';
 import { Menu } from '../entities/Menu';
 import { MenuCategoryRepository } from './menuCategory.repository';
+import { Order } from '../entities/Order';
+import { OrderDetail } from '../entities/OrderDetail';
+import { OrderRepository } from './order.repository';
+import { OrderDetailRepository } from './orderDetail.repository';
 
-const entityArrays: EntityClassOrSchema[] = [User, Menu, MenuCategory];
+const entityArrays: EntityClassOrSchema[] = [
+  User,
+  Menu,
+  MenuCategory,
+  Order,
+  OrderDetail,
+];
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([...entityArrays], process.env.DATABASE_NAME),
   ],
-  providers: [UserRepository, MenuCategoryRepository],
-  exports: [UserRepository, MenuCategoryRepository],
+  providers: [
+    UserRepository,
+    OrderRepository,
+    MenuCategoryRepository,
+    OrderDetailRepository,
+  ],
+  exports: [
+    UserRepository,
+    OrderRepository,
+    MenuCategoryRepository,
+    OrderDetailRepository,
+  ],
 })
 export class RepositoryModule {}
