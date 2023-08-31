@@ -13,9 +13,10 @@ CREATE TABLE `user` (
   `name` varchar(20) NOT NULL COMMENT '유저 이름',
   `password` varchar(255) NOT NULL COMMENT '비밀번호',
   PRIMARY KEY (`seq`),
+  UNIQUE KEY `user_UN` (`id`),
   KEY `user_FK` (`store_seq`),
   CONSTRAINT `user_FK` FOREIGN KEY (`store_seq`) REFERENCES `store` (`seq`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='유저 정보';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='유저 정보';
 
 CREATE TABLE `menu` (
   `seq` int NOT NULL AUTO_INCREMENT COMMENT '메뉴 번호',

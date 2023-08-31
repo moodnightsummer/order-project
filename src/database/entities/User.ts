@@ -11,6 +11,7 @@ import { Order } from "./Order";
 import { Payment } from "./Payment";
 import { Store } from "./Store";
 
+@Index("user_UN", ["id"], { unique: true })
 @Index("user_FK", ["storeSeq"], {})
 @Entity("user", { schema: "torder" })
 export class User {
@@ -20,7 +21,12 @@ export class User {
   @Column("int", { name: "store_seq", comment: "매장 번호" })
   storeSeq: number;
 
-  @Column("varchar", { name: "id", comment: "아이디", length: 30 })
+  @Column("varchar", {
+    name: "id",
+    unique: true,
+    comment: "아이디",
+    length: 30,
+  })
   id: string;
 
   @Column("varchar", { name: "name", comment: "유저 이름", length: 20 })
