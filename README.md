@@ -107,6 +107,7 @@ http://localhost:3000/v1/auth/login
 }
 ```
 
+@Post
 <b>로그인 필요</b>(authorization에 accessToken, body에 refreshToken 필요)  
 http://localhost:3000/v1/auth/logout
 
